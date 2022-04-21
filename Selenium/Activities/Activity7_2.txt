@@ -1,0 +1,38 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Activity7_2 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://training-support.net/selenium/dynamic-attributes");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+        WebDriverWait wait = new WebDriverWait(driver,15);
+        WebElement username=driver.findElement(By.xpath("//div[@class='content'][contains(text(),'Sign Up')]//following::input[1]"));
+        WebElement password = driver.findElement(By.xpath("//div[@class='content'][contains(text(),'Sign Up')]//following::input[@placeholder='Password'][1]"));
+        WebElement confirm_password = driver.findElement(By.xpath("//div[@class='content'][contains(text(),'Sign Up')]//following::input[@placeholder='Password'][2]"));
+        WebElement email=driver.findElement(By.xpath("//input[contains(@name,'email')]"));
+        WebElement signup = driver.findElement(By.xpath("//button[contains(text(),'Sign')]"));
+        WebElement thankyoumsg = driver.findElement(By.xpath("//div[@id='action-confirmation']"));
+        wait.until(ExpectedConditions.visibilityOf(username));
+        wait.until(ExpectedConditions.visibilityOf(password));
+        wait.until(ExpectedConditions.visibilityOf(confirm_password));
+        wait.until(ExpectedConditions.visibilityOf(email));
+        wait.until(ExpectedConditions.visibilityOf(signup));
+        username.sendKeys("Kandhaguru");
+        password.sendKeys("Kavacham");
+        confirm_password.sendKeys("Kavacham");
+        email.sendKeys("abc@gmail.com");
+        signup.click();
+        wait.until(ExpectedConditions.visibilityOf(thankyoumsg));
+        String msg =thankyoumsg.getText();
+        System.out.println("Success message:" +msg + "  is displayed");
+        driver.close();
+	}
+
+}
