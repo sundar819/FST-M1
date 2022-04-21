@@ -1,0 +1,25 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Activity5_1 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://training-support.net/selenium/dynamic-controls");
+
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		
+		WebElement chkbox=driver.findElement(By.xpath("//input[@name='toggled']"));
+		
+		System.out.println("check box is displayed on the page:"+chkbox.isDisplayed());
+		System.out.println("check box status before clicking:"+chkbox.isSelected());
+		chkbox.click();
+		System.out.println("check box is displayed on the page:"+chkbox.isDisplayed());
+		System.out.println("check box status after clicking:"+chkbox.isSelected());
+
+	}
+
+}
