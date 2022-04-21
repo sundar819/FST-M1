@@ -1,0 +1,33 @@
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Activity9_1 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://training-support.net/selenium/selects");
+		
+		WebElement dropdown1 = driver.findElement(By.xpath("//select[@id='single-select']"));
+		
+		Select select = new Select(dropdown1);
+		select.selectByVisibleText("Option 2");
+		select.selectByIndex(3);
+		select.selectByValue("4");
+		List<WebElement> options=select.getOptions();
+		System.out.print("List of values in the drop-down are:  ");
+		for(int i=1;i<options.size();i++)
+		{
+			System.out.print(options.get(i).getText()+" , ");
+			
+		}
+		driver.close();
+
+	}
+
+}
