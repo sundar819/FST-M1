@@ -1,0 +1,27 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Activity5_3 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://training-support.net/selenium/dynamic-controls");
+
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		
+		WebElement txtbox=driver.findElement(By.xpath("//div[@id='dynamicText']/input"));
+		WebElement button=driver.findElement(By.xpath("//button[@id='toggleInput']"));
+		
+		System.out.println("text box status before clicking on button:"+txtbox.isEnabled());
+		button.click();
+	
+		System.out.println("text box status after clicking on button:"+txtbox.isEnabled());
+		
+		driver.close();
+
+	}
+
+}
