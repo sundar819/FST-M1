@@ -1,0 +1,35 @@
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Activity8_1 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://training-support.net/selenium/tables");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+
+		List<WebElement> noofrows = driver.findElements(By.xpath("//table[contains(@class,'striped')]/tbody/tr"));
+		System.out.println("Number of rows in the table: " + noofrows.size());
+		List<WebElement> noofcolumns = driver
+				.findElements(By.xpath("//table[contains(@class,'striped')]/tbody/tr[1]/td"));
+		System.out.println("Number of columns in the table: " + noofcolumns.size());
+		List<WebElement> thirdrowelements = driver
+				.findElements(By.xpath("//table[contains(@class,'striped')]/tbody/tr[3]/td"));
+		for (int i = 0; i < thirdrowelements.size(); i++) {
+			System.out.println("Third row element values are :" + thirdrowelements.get(i).getText());
+
+		}
+		WebElement secondrowelement = driver
+				.findElement(By.xpath("//table[contains(@class,'striped')]/tbody/tr[2]/td[2]"));
+		System.out.println("Second row second column element value is :" + secondrowelement.getText());
+		driver.close();
+
+	}
+
+}
