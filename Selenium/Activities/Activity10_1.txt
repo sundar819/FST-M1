@@ -1,0 +1,30 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Activity10_1 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get(" https://www.training-support.net/selenium/input-events");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		WebElement mainelement = driver.findElement(By.xpath("//div[@id='D3Cube']/div"));
+		Actions action = new Actions(driver);
+		WebElement activelement1 = driver.findElement(By.xpath("//div[@id='D3Cube']//div[@class='active']"));
+		action.click(mainelement).perform();
+		System.out.println("value of side after left click is :" + activelement1.getText());
+
+		WebElement activelement2 = driver.findElement(By.xpath("//div[@id='D3Cube']//div[@class='active']"));
+		action.doubleClick(mainelement).build().perform();
+		System.out.println("value of side after double click is :" + activelement2.getText());
+
+		WebElement activelement3 = driver.findElement(By.xpath("//div[@id='D3Cube']//div[@class='active']"));
+		action.contextClick(mainelement).perform();
+		System.out.println("value of side after right click is :" + activelement3.getText());
+		driver.close();
+	}
+
+}
