@@ -1,0 +1,40 @@
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Activity8_2 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://training-support.net/selenium/tables");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		WebDriverWait wait = new WebDriverWait(driver,15);
+		List<WebElement> noofrows = driver.findElements(By.xpath("//table[contains(@class,'sortable')]/tbody/tr"));
+		System.out.println("Number of rows in the table: " + noofrows.size());
+		List<WebElement> noofcolumns = driver
+				.findElements(By.xpath("//table[@id='sortableTable']/thead/tr/th"));
+		System.out.println("Number of columns in the table: " + noofcolumns.size());
+		
+		WebElement secondrowelementbefore = driver
+				.findElement(By.xpath("//table[contains(@class,'sortable')]/tbody/tr[2]/td[2]"));
+		System.out.println("Second row second column element value before name column is clicked :" + secondrowelementbefore.getText());
+		WebElement nameheader = driver.findElement(By.xpath("//table[@id='sortableTable']/thead/tr/th[1]"));
+		wait.until(ExpectedConditions.visibilityOf(nameheader));
+		Actions action = new Actions(driver);
+		action.click(nameheader).perform();
+		WebElement secondrowelementafter = driver
+				.findElement(By.xpath("//table[contains(@class,'sortable')]/tbody/tr[2]/td[2]"));
+		wait.until(ExpectedConditions.visibilityOf(secondrowelementafter));
+		System.out.println("Second row second column element value after name column is clicked :" + secondrowelementafter.getText());
+		driver.close();
+
+	}
+
+}
