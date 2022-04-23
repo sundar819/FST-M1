@@ -1,0 +1,25 @@
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Activity11_3 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://www.training-support.net/selenium/javascript-alerts");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		driver.findElement(By.xpath("//button[@id='prompt']")).click();
+		WebDriverWait wait = new WebDriverWait(driver,15);
+		wait.until(ExpectedConditions.alertIsPresent());
+		Alert a=driver.switchTo().alert();
+		a.sendKeys("Yes, you are!" );
+		a.accept();
+		driver.close();
+		
+
+	}
+
+}
