@@ -1,0 +1,32 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Activity12_2 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://www.training-support.net/selenium/nested-iframes");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+					
+		System.out.println("No of iFrames on the page: "+driver.findElements(By.tagName("iframe")).size());
+		WebElement nestediframe1;
+		 nestediframe1 =driver.findElement(By.xpath("//iframe[contains(@src,'nested')]"));
+		driver.switchTo().frame(nestediframe1);
+		
+		WebElement frame1 =driver.findElement(By.xpath("//iframe[contains(@src,'frame1')][@height='auto']"));
+		
+		driver.switchTo().frame(frame1);
+		System.out.println("Heading of first iframe iside nested iframe:  " +driver.findElement(By.xpath("//*[contains(text(),'first')]")).getText());
+		
+		driver.switchTo().defaultContent();
+		nestediframe1 =driver.findElement(By.xpath("//iframe[contains(@src,'nested')]"));
+		driver.switchTo().frame(nestediframe1);
+		
+		WebElement frame2 =driver.findElement(By.xpath("//iframe[contains(@src,'frame2')]"));
+		driver.switchTo().frame(frame2);
+		System.out.println("Heading of second iframe inside nested iframe:  " +driver.findElement(By.xpath("//*[contains(text(),'second')]")).getText());
+	}
+
+}
