@@ -1,0 +1,36 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Activity12_3 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://www.training-support.net/selenium/popups");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		WebDriverWait wait = new WebDriverWait(driver,15);
+		
+		WebElement signin = driver.findElement(By.xpath("//button[contains(@class,'orange')]"));
+		
+		
+		Actions action = new Actions(driver);
+		
+		wait.until(ExpectedConditions.visibilityOf(signin));
+		action.moveToElement(signin).perform();
+		String tooltipmsg=signin.getAttribute("data-tooltip");
+        System.out.println("Tool tip message after hovering over sign in"+tooltipmsg);
+        signin.click();
+        driver.findElement(By.cssSelector("#username")).sendKeys("admin");
+        driver.findElement(By.cssSelector("#password")).sendKeys("password");
+        driver.findElement(By.xpath("//button[contains(text(),'Log in')]")).click();
+        WebElement welcomemsg = driver.findElement(By.xpath("//div[@id='action-confirmation']"));
+        wait.until(ExpectedConditions.visibilityOf(welcomemsg));
+        System.out.println("Message displayed on the page after signing in :" +welcomemsg.getText());
+        driver.close();
+	}
+
+}
