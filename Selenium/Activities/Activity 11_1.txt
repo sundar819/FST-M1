@@ -1,0 +1,26 @@
+package package1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Activity11_1 {
+
+	public static void main(String[] args) {
+
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://www.training-support.net/selenium/javascript-alerts");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		driver.findElement(By.xpath("//button[@id='simple']")).click();
+		WebDriverWait wait = new WebDriverWait(driver,15);
+		wait.until(ExpectedConditions.alertIsPresent());
+		System.out.println(driver.switchTo().alert().getText());
+		driver.switchTo().alert().accept();
+		
+		driver.close();
+
+	}
+
+}
