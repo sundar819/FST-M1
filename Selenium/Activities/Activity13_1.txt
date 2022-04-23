@@ -1,0 +1,24 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+
+public class Activity13_1 {
+
+	public static void main(String[] args) throws IOException, CsvException {
+		CSVReader reader = new CSVReader(new FileReader("E:\\sunworkspace\\FST_Selenium_Project\\src\\test\\java\\sample.csv"));
+          List<String[]> list1 = reader.readAll();
+          
+          for(String arr[]:list1)
+          {
+        	  for (String s:arr)
+        	  {
+        		  System.out.println(s);
+        	  }
+          }
+	}
+
+}
