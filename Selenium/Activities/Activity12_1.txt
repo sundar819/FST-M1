@@ -1,0 +1,31 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Activity12_1 {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("https://www.training-support.net/selenium/iframes");
+		System.out.println("Title of initial page is:" + driver.getTitle());
+		
+		System.out.println("Total iframes on web page:"+driver.findElements(By.tagName("iframe")).size());
+		driver.switchTo().frame(0);
+		System.out.println("Heading of first iframe:  " +driver.findElement(By.xpath("//*[contains(text(),'first')]")).getText());
+        System.out.println("Button text before button clicked in iframe1: "+driver.findElement(By.xpath("//*[contains(text(),'first')]//following::button[contains(text(),'Click')]")).getText());
+        String color1=driver.findElement(By.xpath("//*[contains(text(),'first')]//following::button[contains(text(),'Click')]")).getCssValue("background-color");
+        System.out.println("Button color in iframe1 :"+color1);
+        driver.findElement(By.xpath("//*[contains(text(),'first')]//following::button[contains(text(),'Click')]")).click();
+        System.out.println("Button text after button clicked in iframe1: "+driver.findElement(By.xpath("//*[contains(text(),'first')]//following::button[contains(text(),'Pressed')]")).getText());
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(1);
+		System.out.println("Heading of first iframe:  " +driver.findElement(By.xpath("//*[contains(text(),'second')]")).getText());
+        System.out.println("Button text before button clicked in iframe2: "+driver.findElement(By.xpath("//*[contains(text(),'second')]//following::button[contains(text(),'Click')]")).getText());
+        String color2=driver.findElement(By.xpath("//*[contains(text(),'second')]//following::button[contains(text(),'Click')]")).getCssValue("background-color");
+        System.out.println("Button color in iframe1 :"+color2);
+        driver.findElement(By.xpath("//*[contains(text(),'second')]//following::button[contains(text(),'Click')]")).click();
+        System.out.println("Button text after button clicked in iframe2: "+driver.findElement(By.xpath("//*[contains(text(),'second')]//following::button[contains(text(),'Pressed')]")).getText());
+        
+	}
+
+}
