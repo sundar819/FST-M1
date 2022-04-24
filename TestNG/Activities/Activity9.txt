@@ -1,0 +1,98 @@
+package package2;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Activity9 {
+	WebDriver driver;
+	WebDriverWait wait;
+  @Test
+  public void simpleAlertTestCase() {
+	  
+	  WebElement simplealert=driver.findElement(By.xpath("//button[@id='simple']"));
+	  wait=new WebDriverWait(driver,20);
+	  wait.until(ExpectedConditions.visibilityOf(simplealert));
+	  simplealert.click();
+	  Reporter.log("Clicked on Simple alert");
+	 
+	  wait.until(ExpectedConditions.alertIsPresent());
+	  Alert alert1 = driver.switchTo().alert();
+	  System.out.println( alert1.getText());
+	  Assert.assertEquals(alert1.getText(), "This is a JavaScript Alert!");
+	  alert1.accept();
+	  
+	  Reporter.log("Accepted the simple alert");
+  }
+  
+  @Test
+  public void confirmAlertTestCase() {
+	  WebElement confirmalert=driver.findElement(By.xpath("//button[@id='confirm']"));
+	  wait=new WebDriverWait(driver,20);
+	  wait.until(ExpectedConditions.visibilityOf(confirmalert));
+	  confirmalert.click();
+	  Reporter.log("Clicked on Confirm alert");
+	
+	  wait.until(ExpectedConditions.alertIsPresent());
+	  Alert alert2 = driver.switchTo().alert();
+	  System.out.println( alert2.getText());
+	  Assert.assertEquals(alert2.getText(), "This is a JavaScript Confirmation!");
+	  alert2.accept();
+	  
+	  Reporter.log("Accepted the confirm alert");
+  }
+  
+  @Test
+  public void promptAlertTestCase() {
+	  
+	  WebElement promptalert=driver.findElement(By.xpath("//button[@id='prompt']"));
+	  wait=new WebDriverWait(driver,20);
+	  wait.until(ExpectedConditions.visibilityOf(promptalert));
+	  promptalert.click();
+	  Reporter.log("Clicked on prompt alert");
+	  
+	  wait.until(ExpectedConditions.alertIsPresent());
+	  Alert alert3 = driver.switchTo().alert();
+	  System.out.println( alert3.getText());
+	  alert3.sendKeys("hello");
+	  Reporter.log("sent text in prompt alert");
+	  Assert.assertEquals(alert3.getText(), "This is a JavaScript Prompt!");
+	  alert3.accept();
+	 
+	  Reporter.log("Accepted the prompt alert");
+  }
+  
+ 
+  @BeforeClass
+  public void beforeclass()
+  {
+	  driver = new FirefoxDriver();
+	  driver.get("https://www.training-support.net/selenium/javascript-alerts");
+	  Reporter.log("Navigated to alert URL");
+  }
+  @AfterClass
+  public void afterclass()
+  {
+	  driver.close();
+	  Reporter.log("Closed the browser");
+	  
+  }
+  @BeforeMethod
+  public void beforemethod()
+  {
+	  driver.switchTo().defaultContent();
+	  
+  }
+}
