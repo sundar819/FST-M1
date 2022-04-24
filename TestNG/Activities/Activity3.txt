@@ -1,0 +1,37 @@
+package package1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class Activity3 {
+	WebDriver driver;
+	@Test
+	public void test1()
+	{
+		driver.findElement(By.cssSelector("#username")).sendKeys("admin");
+		driver.findElement(By.cssSelector("#password")).sendKeys("password");
+		driver.findElement(By.xpath("//*[contains(text(),'Log in') ]"));
+		String Actual_msg=driver.findElement(By.id("action-confirmation")).getText();
+		System.out.println(Actual_msg);
+		Assert.assertEquals(Actual_msg, "Welcome Back, admin");
+		System.out.println("Correct confirmation message is displayed");
+	}
+	@BeforeClass
+	public void beforeclass()
+	{
+		driver = new FirefoxDriver();
+		driver.get("https://www.training-support.net/selenium/login-form");
+	}
+
+	@AfterClass
+	public void afterclass()
+	{
+		driver.close();
+	}
+
+}
