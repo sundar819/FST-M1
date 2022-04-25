@@ -1,0 +1,150 @@
+Step definition
+package stepDefinitions;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class AlertTestSteps {
+    WebDriver driver;
+    WebDriverWait wait;
+    Alert alert;
+
+    @Given("^User is on the page$")
+    public void openPage() {
+        //Create Instances
+        driver = new FirefoxDriver();
+        wait = new WebDriverWait(driver, 10);
+
+        //Open browser
+        driver.get("https://www.training-support.net/selenium/javascript-alerts");
+    }
+
+    @When("^User clicks the Simple Alert button$")
+    public void openSimpleAlert() {
+        driver.findElement(By.cssSelector("#simple")).click();
+    }
+
+    @When("^User clicks the Confirm Alert button$")
+    public void openConfirmAlert() {
+        driver.findElement(By.cssSelector("#confirm")).click();
+    }
+
+    @When("^User clicks the Prompt Alert button$")
+    public void openPromptAlert() {
+        driver.findElement(By.cssSelector("#prompt")).click();
+    }
+
+    @Then("^Alert opens$")
+    public void switchFocus() {
+        alert = driver.switchTo().alert();
+    }
+
+    @And("^Read the text from Simple Alert and print it$")
+    public void readAlert1() {
+        System.out.println("Alert says: " + alert.getText());
+    }
+    @And("^Read the text from Confirm Alert and print it$")
+    public void readAlert2() {
+        System.out.println("Alert says: " + alert.getText());
+    }
+    
+    @And("^Read the text from Prompt Alert and print it$")
+    public void readAlert3() {
+        System.out.println("Alert says: " + alert.getText());
+    }
+
+    @And("^Write a custom message in it$")
+    public void writeToPrompt() {
+        alert.sendKeys("Custom Message");
+    }
+
+    @And("^Close the Simple alert$")
+    public void closeAlert1() {
+        alert.accept();
+    }
+
+    
+    @And("^Close the Confirm Alert with Cancel$")
+    public void closeAlertWithCAncel() {
+        alert.dismiss();
+    }
+    
+    @And("^Close the Prompt alert$")
+    public void closeAlert2() {
+        alert.accept();
+    }
+
+    @And("^Close Browser1$")
+    public void closeBrowser1() {
+        driver.close();
+    }
+    @And("^Close Browser2$")
+    public void closeBrowser2() {
+        driver.close();
+    }
+    
+    @And("^Close Browser3$")
+    public void closeBrowser3() {
+        driver.close();
+    }
+}
+
+features:
+@activity3
+Feature: Testing with Tags
+@SimpleAlert @SmokeTest
+Scenario:Testing with Simple Alert
+Given User is on the page
+When User clicks the Simple Alert button
+Then Alert opens
+And Read the text from Simple Alert and print it
+And Close the Simple alert
+And Close Browser1
+
+@ConfirmAlert
+Scenario:Testing with Confirm Alert
+Given User is on the page
+When User clicks the Confirm Alert button
+Then Alert opens
+And Read the text from Confirm Alert and print it
+And Close the Confirm Alert with Cancel
+And Close Browser2
+
+
+@PromptAlert
+Scenario Outline: Testing with Prompt Alert
+Given User is on the page
+When User clicks the Prompt Alert button
+Then Alert opens
+And Read the text from Prompt Alert and print it
+And Write a custom message in it
+And Close the Prompt alert
+And Close Browser3
+
+Runner
+package cucumberTests;
+import org.junit.runner.RunWith;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+    features = "Features",
+    glue = "stepDefinitions",
+    tags = "@activity3",
+    plugin = { "pretty","html:target/cucumber-reports/reports" },
+    monochrome = true
+)
+
+public class ActivitiesRunner {
+    //empty
+}
+
