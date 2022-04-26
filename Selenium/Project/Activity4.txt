@@ -1,0 +1,23 @@
+package package1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class Activity4 {
+	@Test
+	public void method() {
+
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://alchemy.hguy.co/jobs/");
+
+		String expectedsecondheading = driver.findElement(By.xpath("//h2[text()='Quia quis non']")).getText();
+		String actualsecondheading = "Quia quis non";
+		Assert.assertTrue(expectedsecondheading.equals(actualsecondheading));
+		System.out.println("Actual second heading matches with expected second heading");
+		driver.close();
+	}
+}

@@ -1,0 +1,25 @@
+package package1;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class Activity1 {
+
+	// Verify the website title
+
+	@Test
+	public void method() {
+
+		WebDriver driver = new FirefoxDriver();
+
+		driver.get("https://alchemy.hguy.co/jobs/");
+		String ActualTitle = driver.getTitle();
+		String expectedtitle = "Alchemy Jobs – Job Board Application";
+		Assert.assertEquals(ActualTitle, expectedtitle);
+		System.out.println("Expected ttile matches with actual title");
+		driver.close();
+
+	}
+}
