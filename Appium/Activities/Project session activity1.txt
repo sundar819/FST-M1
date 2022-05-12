@@ -1,0 +1,102 @@
+package package1;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+
+public class Activity1 {
+
+	// Declare Android driver
+	AndroidDriver<MobileElement> driver;
+	WebDriverWait wait;
+	MobileElement Newtask_text_box;
+	MobileElement save_button;
+
+	@BeforeClass
+	public void setUp() throws MalformedURLException {
+		// Set the Desired Capabilities
+		DesiredCapabilities caps = new DesiredCapabilities();
+		caps.setCapability("deviceName", "fc3e29dd1220");
+		caps.setCapability("platformName", "Android");
+		caps.setCapability("automationName", "UiAutomator2");
+		caps.setCapability("appPackage", "com.google.android.apps.tasks");
+		caps.setCapability("appActivity", ".ui.TaskListsActivity");
+		caps.setCapability("noReset", true);
+
+		// Instantiate Appium Driver
+		URL appServer = new URL("http://127.0.0.1:4723/wd/hub");
+		driver = new AndroidDriver<>(appServer, caps);
+		wait = new WebDriverWait(driver, 20);
+	}
+
+	@Test
+	public void test1() throws InterruptedException {
+		// Wait for app to load
+		wait.until(ExpectedConditions.elementToBeClickable(MobileBy.id("tasks_fab")));
+
+		// Click on add new contact floating button
+		driver.findElement(MobileBy.id("tasks_fab")).click();
+
+		// MobileElement Newtask_text_box
+		// =driver.findElement(MobileBy.id("add_task_title"));
+		Newtask_text_box = driver.findElement(MobileBy.xpath("//android.widget.EditText[@text='New task']"));
+		save_button = driver.findElement(MobileBy.id("add_task_done"));
+
+		wait.until(ExpectedConditions.visibilityOf(Newtask_text_box));
+		Newtask_text_box.sendKeys("Complete Activity with Google Tasks");
+		wait.until(ExpectedConditions.visibilityOf(save_button));
+		save_button.click();
+		driver.findElement(MobileBy.id("tasks_fab"));
+		// wait.until(ExpectedConditions.elementToBeClickable(MobileBy.id("tasks_fab")));
+		driver.findElement(MobileBy.id("tasks_fab")).click();
+		Thread.sleep(3000);
+		// wait.until(ExpectedConditions.visibilityOf(Newtask_text_box));
+		Newtask_text_box = driver.findElement(MobileBy.xpath("//android.widget.EditText[@text='New task']"));
+
+		Newtask_text_box.sendKeys("Complete Activity with Google Keep");
+		save_button = driver.findElement(MobileBy.id("add_task_done"));
+		save_button.click();
+		driver.findElement(MobileBy.id("tasks_fab"));
+		// wait.until(ExpectedConditions.elementToBeClickable(MobileBy.id("tasks_fab")));
+		driver.findElement(MobileBy.id("tasks_fab")).click();
+		Thread.sleep(3000);
+		// wait.until(ExpectedConditions.visibilityOf(Newtask_text_box));
+		Newtask_text_box = driver.findElement(MobileBy.id("add_task_title"));
+		Newtask_text_box.sendKeys("Complete the second Activity Google Keep");
+		save_button = driver.findElement(MobileBy.id("add_task_done"));
+		save_button.click();
+
+		MobileElement first_task = driver
+				.findElement(MobileBy.xpath("//android.widget.TextView[@text='Complete Activity with Google Tasks']"));
+		MobileElement second_task = driver
+				.findElement(MobileBy.xpath("//android.widget.TextView[@text='Complete Activity with Google Keep']"));
+		MobileElement third_task = driver.findElement(
+				MobileBy.xpath("//android.widget.TextView[@text='Complete the second Activity Google Keep']"));
+		wait.until(ExpectedConditions.visibilityOf(first_task));
+		wait.until(ExpectedConditions.visibilityOf(second_task));
+		wait.until(ExpectedConditions.visibilityOf(third_task));
+		Assert.assertTrue(first_task.isDisplayed(), "Task1 has been added to the list");
+		Assert.assertTrue(second_task.isDisplayed(), "Task2 has been added to the list");
+		Assert.assertTrue(third_task.isDisplayed(), "Task3 has been added to the list");
+
+	}
+
+	@AfterClass
+	public void tearDown() {
+		// Close app
+		driver.quit();
+	}
+}
